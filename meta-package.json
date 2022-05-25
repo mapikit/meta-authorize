@@ -1,0 +1,57 @@
+{
+  "name": "meta-authorize",
+  "description": "Token Signing/Checking for Meta-System",
+  "version": "1.0.0",
+  "functionsDefinitions": [
+    {
+      "functionName": "createToken",
+      "description": "Creates a JWT token with a given data",
+      "input": {
+        "signingKey": { "type": "string", "required": true },
+        "data": { "type": "cloudedObject", "required": true },
+        "options": { "type": "object", "required": false, "subtype": {
+          "expiresIn": { "type": "number", "required": false },
+          "audience": { "type": "array", "required": false, "subtype": "string" },
+          "issuer": { "type": "string", "required": false }
+        }}
+      },
+      "output": {
+        "token": { "type": "string", "required": true }
+      }
+    },
+    {
+      "functionName": "verifyToken",
+      "description": "Check if the given token is valid, returning the data if the token is valid",
+      "input": {
+        "signingKey": { "type": "string", "required": true },
+        "token": { "type": "string", "required": true }
+      },
+      "output": {
+        "valid": { "type": "boolean", "required": true },
+        "data": { "type": "cloudedObject", "required": true }
+      }
+    },
+    {
+      "functionName": "hash",
+      "description": "Hashes a string with an auto generated Salt",
+      "input": {
+        "plain": { "type": "string", "required": true }
+      },
+      "output": {
+        "hashed": { "type": "string", "required": true }
+      }
+    },
+    {
+      "functionName": "matchesHash",
+      "description": "Verify plain text against a hashed value",
+      "input": {
+        "plain": { "type": "string", "required": true },
+        "hash": { "type": "string", "required": true }
+      },
+      "output": {
+        "matches": { "type": "boolean", "required": true }
+      }
+    }
+  ],
+  "entrypoint": "./dist/index.js"
+}
