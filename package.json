@@ -1,9 +1,10 @@
 {
   "name": "meta-authorize",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Token Signing/Checking for Meta-System",
   "main": "src/index.ts",
   "scripts": {
+    "build": "npx tsc -p ./tsconfig.build.json",
     "test": "npx mocha"
   },
   "keywords": [
