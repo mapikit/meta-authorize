@@ -1,7 +1,6 @@
 {
   "name": "meta-authorize",
   "description": "Token Signing/Checking for Meta-System",
-  "version": "1.0.0",
   "functionsDefinitions": [
     {
       "functionName": "createToken",

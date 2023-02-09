@@ -1,6 +1,6 @@
 {
   "name": "meta-authorize",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Token Signing/Checking for Meta-System",
   "main": "src/index.ts",
   "scripts": {
