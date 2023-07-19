@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import metaAuth from "../src/index";
+import { createToken, hash, matchesHash, verifyToken } from "../src/index.js";
 import { expect } from "chai";
 
 describe("Complete Test Suite", () => {
@@ -11,7 +11,7 @@ describe("Complete Test Suite", () => {
       name: "testName"
     }
 
-    const result = metaAuth.createToken({ data, signingKey })
+    const result = createToken({ data, signingKey })
 
     expect(result).to.not.be.empty;
   });
@@ -22,8 +22,8 @@ describe("Complete Test Suite", () => {
       rand: randomUUID(),
     }
 
-    const token = metaAuth.createToken({ data, signingKey });
-    const result = metaAuth.verifyToken({ token : token.token , signingKey });
+    const token = createToken({ data, signingKey });
+    const result = verifyToken({ token : token.token , signingKey });
 
     expect(result.data["name"]).to.be.deep.equal(data.name);
     expect(result.data["rand"]).to.be.deep.equal(data.rand);
@@ -38,33 +38,33 @@ describe("Complete Test Suite", () => {
       rand: randomUUID(),
     }
 
-    const token = metaAuth.createToken({ data, signingKey });
-    const result = metaAuth.verifyToken({ token : token.token , signingKey: wrongToken });
+    const token = createToken({ data, signingKey });
+    const result = verifyToken({ token : token.token , signingKey: wrongToken });
 
     expect(result.data).to.be.deep.equal({});
     expect(result.valid).to.be.false;
   });
 
   it("Hash success", async () => {
-    const result = await metaAuth.hash({ plain: randomUUID() });
+    const result = await hash({ plain: randomUUID() });
 
     expect(result.hashed).to.not.be.empty;
   });
 
   it("Verify Hash", async () => {
     const plain = randomUUID();
-    const hash = await metaAuth.hash({ plain });
+    const hashRes = await hash({ plain });
 
-    const result = await metaAuth.matchesHash({ plain, hash: hash.hashed });
+    const result = await matchesHash({ plain, hash: hashRes.hashed });
 
     expect(result.matches).to.be.true;
   });
 
   it("Verify Wrong Hash", async () => {
     const plain = randomUUID();
-    const hash = await metaAuth.hash({ plain });
+    const hashRes = await hash({ plain });
 
-    const result = await metaAuth.matchesHash({ plain : randomUUID(), hash: hash.hashed });
+    const result = await matchesHash({ plain : randomUUID(), hash: hashRes.hashed });
 
     expect(result.matches).to.be.false;
   });

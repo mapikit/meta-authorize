@@ -1,0 +1,9 @@
+{
+  "name": "meta-authorize",
+  "version": "1.0.5",
+  "entrypoint": "./dist/entrypoint.js",
+  "configurationFormat": {},
+  "permissions": [
+    { "entity": "addonsFunctions", "permissions": ["register"] }
+  ]
+}

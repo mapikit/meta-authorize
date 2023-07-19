@@ -1,8 +1,19 @@
-// This is supposed to be a package containing these functions,
-// Which should all be independent from eachother
-
 import * as argon2 from "argon2";
-import { sign, verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import { ObjectDefinition } from "@meta-system/object-definition";
+
+const { sign, verify } = jwt;
+
+export type FunctionDefinition = {
+  input : ObjectDefinition;
+  output : ObjectDefinition;
+  functionName : string;
+}
+
+export type MetaSystemFunction = {
+  function : Function;
+  definition : FunctionDefinition;
+}
 
 type TokenOpt = {
   expiresIn ?: number;
@@ -14,7 +25,7 @@ type TokenOpt = {
 // > Receiving random info
 // > Receiving an Auth key
 // >> Outputs the Token
-const createToken = ({ data, signingKey, options = {} } : { data : object, signingKey : string, options ?: TokenOpt }) : { token : string } => {
+export const createToken = ({ data, signingKey, options = {} } : { data : object, signingKey : string, options ?: TokenOpt }) : { token : string } => {
   return {
     token: sign(data, signingKey, options)
   }
@@ -23,7 +34,7 @@ const createToken = ({ data, signingKey, options = {} } : { data : object, signi
 // Verify token
 // > with an Auth Key
 // >> Outputs a boolean
-const verifyToken = ({ token, signingKey } : { token : string, signingKey : string }) : { valid : boolean, data : object } => {
+export const verifyToken = ({ token, signingKey } : { token : string, signingKey : string }) : { valid : boolean, data : object } => {
   let tokenData = {};
   let valid = true;
 
@@ -41,7 +52,7 @@ const verifyToken = ({ token, signingKey } : { token : string, signingKey : stri
 
 // Hash Pass
 // >> Returns a string
-const hash = async ({ plain } : { plain : string }) : Promise<{ hashed : string}>  => {
+export const hash = async ({ plain } : { plain : string }) : Promise<{ hashed : string}>  => {
   const result = await argon2.hash(plain)
 
   return {
@@ -51,17 +62,10 @@ const hash = async ({ plain } : { plain : string }) : Promise<{ hashed : string}
 
 // Verify Against Hash
 // >> Returns boolean
-const matchesHash = async ({ plain, hash } : { plain : string; hash : string }) : Promise<{ matches : boolean }> => {
+export const matchesHash = async ({ plain, hash } : { plain : string; hash : string }) : Promise<{ matches : boolean }> => {
   const result = {
     matches: await argon2.verify(hash, plain)
   };
 
   return result;
-}
-
-export default {
-  createToken,
-  verifyToken,
-  hash,
-  matchesHash
 }
