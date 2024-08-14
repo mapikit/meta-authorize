@@ -1,5 +1,5 @@
-import { hash } from "standard-functions/hash";
-import { matchesHash } from "standard-functions/matches-hash";
+import { hash } from "./standard-functions/hash.js";
+import { matchesHash } from "./standard-functions/matches-hash.js";
 import { MetaSystemFunction } from "types.js";
 
 const noop = () : void => {};

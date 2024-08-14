@@ -1,5 +1,11 @@
 import { hash } from "argon2";
-import { AuthorizationEntity, SchemaEntity } from "types";
+import { AuthorizationEntity, FunctionDefinition, SchemaEntity } from "../types.js";
+
+export const setPasswordFunctionDefinition : FunctionDefinition = {
+  input: { entity: { type: "cloudedObject", required: true }, newPassword: { type: "string", required: true } },
+  output: { entity: { type: "cloudedObject" } },
+  functionName: "setPassword",
+};
 
 type NewPasswordFunctionInput = { entity : SchemaEntity, newPassword : string };
 export const generateSetHashedPasswordSchemaFunction = (authEntity : AuthorizationEntity)

@@ -1,5 +1,11 @@
-import { matchesHash } from "standard-functions/matches-hash";
-import { AuthorizationEntity, SchemaEntity } from "types.js";
+import { matchesHash } from "../standard-functions/matches-hash.js";
+import { AuthorizationEntity, FunctionDefinition, SchemaEntity } from "../types.js";
+
+export const passwordMatchesDefinition : FunctionDefinition = {
+  input: { entity: { type: "cloudedObject", required: true }, password: { type: "string", required: true } },
+  output: { value: { type: "boolean" } },
+  functionName: "passwordMatches",
+};
 
 type PasswordMatchesFunctionInput = { entity : SchemaEntity, password : string };
 export const generatePasswordMatchesSchemaFunction = (authEntity : AuthorizationEntity)

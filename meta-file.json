@@ -6,8 +6,7 @@
     "authorizationEntities": { "type": "array", "required": false, "subtype": {
       "schemaIdentifier": { "type": "string", "required": true },
       "passwordProperty": { "type": "string", "required": true },
-      "loginProperty": { "type": "string", "required": true },
-      "saltField": { "type": "string", "required": true }
+      "loginProperty": { "type": "string", "required": true }
     } }
   },
   "permissions": [

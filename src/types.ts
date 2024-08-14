@@ -1,7 +1,7 @@
 import { ObjectDefinition } from "@meta-system/object-definition";
 
 export type AddonConfiguration = {
-  authorizationEntities : AuthorizationEntity[],
+  authorizationEntities ?: AuthorizationEntity[],
 }
 
 export type AuthorizationEntity = {
@@ -9,7 +9,6 @@ export type AuthorizationEntity = {
   passwordProperty : string,
   loginProperty : string,
 }
-
 
 // Utility Types
 export type FunctionDefinition = {
