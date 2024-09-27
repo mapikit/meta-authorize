@@ -32,7 +32,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["error"],
     "@typescript-eslint/explicit-function-return-type": ["error"],
     "@typescript-eslint/no-floating-promises" : "error",
-    "@typescript-eslint/no-misused-promises" : [ "error", { checkConditionals: true, checkVoidReturn: true } ],
+    "@typescript-eslint/no-misused-promises" : [ "error" ],
     "@typescript-eslint/ban-types" : ["error", { "types": { "Function": false, "object": false } }],
     "@typescript-eslint/no-extra-semi" : ["off"],
     "@typescript-eslint/no-shadow": ["error"],

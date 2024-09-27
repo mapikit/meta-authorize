@@ -1,7 +1,11 @@
-import { MetaSystemFunction, createToken, hash, matchesHash, verifyToken } from "./index.js";
+import { hash } from "./standard-functions/hash.js";
+import { matchesHash } from "./standard-functions/matches-hash.js";
+import { MetaSystemFunction } from "types.js";
+
+const noop = () : void => {};
 
 export const createTokenFunction : MetaSystemFunction = {
-  function: createToken,
+  function: noop,
   definition: {
     functionName: "createToken",
     input: {
@@ -10,36 +14,36 @@ export const createTokenFunction : MetaSystemFunction = {
       options: { type: "object", required: false, subtype: {
         expiresIn: { type: "number", required: false },
         audience: { type: "array", subtype: "string", required: false },
-        issuer: { type: "string", required: false }
-      } }
+        issuer: { type: "string", required: false },
+      } },
     },
-    output: { token: { type: "string", required: true } }
-  }
-}
+    output: { token: { type: "string", required: true } },
+  },
+};
 
 export const verifyTokenFunction : MetaSystemFunction = {
-  function: verifyToken,
+  function: noop,
   definition: {
     functionName: "verifyToken",
     output: {
       token: { type: "string", required: true },
-      signingKey: { type: "string", required: true }
+      signingKey: { type: "string", required: true },
     },
     input: {
       valid: { type: "boolean", required: true },
-      data: { type: "cloudedObject", required: true }
-    }
-  }
-}
+      data: { type: "cloudedObject", required: true },
+    },
+  },
+};
 
 export const hashFunction : MetaSystemFunction = {
   function: hash,
   definition: {
     functionName: "hash",
     input: { plain: { type: "string", required: true } },
-    output: { hashed: { type: "string", required: true } }
-  }
-}
+    output: { hashed: { type: "string", required: true } },
+  },
+};
 
 export const matchesHashFunction : MetaSystemFunction = {
   function: matchesHash,
@@ -47,8 +51,8 @@ export const matchesHashFunction : MetaSystemFunction = {
     functionName: "matchesHash",
     input: {
       plain: { type: "string", required: true },
-      hash: { type: "string", required: true }
+      hash: { type: "string", required: true },
     },
-    output: { matches: { type: "boolean", required: true } }
-  }
-}
+    output: { matches: { type: "boolean", required: true } },
+  },
+};

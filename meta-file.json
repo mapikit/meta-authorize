@@ -2,8 +2,16 @@
   "name": "meta-authorize",
   "version": "1.0.5",
   "entrypoint": "./dist/entrypoint.js",
-  "configurationFormat": {},
+  "configurationFormat": {
+    "authorizationEntities": { "type": "array", "required": false, "subtype": {
+      "schemaIdentifier": { "type": "string", "required": true },
+      "passwordProperty": { "type": "string", "required": true },
+      "loginProperty": { "type": "string", "required": true }
+    } }
+  },
   "permissions": [
-    { "entity": "addonsFunctions", "permissions": ["register"] }
+    { "entity": "addonsFunctions", "permissions": ["register", "preregister", "set_registered"] },
+    { "entity": "schemas", "permissions": ["get_schema", "modify_schema"] },
+    { "entity": "schemaFunctions", "permissions": ["set_functions"] }
   ]
 }
